@@ -11,7 +11,9 @@ class UserController extends Controller
         $validator = validator($request->all(), [
             "name" => "required|unique:users",
             "groupname" => "required|min:4|string",
-            "country" => "required|min:4"
+            "country" => "required|min:4",
+            "age" => "required|numeric|max:3",
+            "thumbnail" => "required|string"
         ]);
 
         if($validator->fails()){
@@ -54,6 +56,8 @@ class UserController extends Controller
             'name' => 'required',
             'groupname' => 'required',
             'country' => 'required',
+            "age" => "required|numeric|max:3",
+            "thumbnail" => "required|string"
         ]);
 
         if($validator->fails()){
@@ -71,6 +75,8 @@ class UserController extends Controller
                 'name'=>$data['name'],
                 'groupname'=>$data['groupname'],
                 'country'=>$data['country'],
+                'age'=>$data['age'],
+                'thumbnail'=>$data['thumbnail'],
             ]);
             return response()->json([
                 "ok"=>true,

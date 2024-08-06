@@ -10,10 +10,16 @@
     include("db-kpop.php");
 
     $id = $_POST["edit-id"];
-    $name = $_POST["input_question"];
+    $name = $_POST["input_name"];
+    $groupname = $_POST["input_groupname"];
+    $age = $_POST["input_age"];
+    $thumbnail = $_POST["input_thumbnail"];
     $name = trim($name);
+    $groupname = trim($groupname);
+    $age = trim($age);
+    $thumbnail = trim($thumbnail);
 
-    if ($name == "" || $name == 0) {
+    if ($name == "" && $groupname == "" && $age >= 0 && $thumbnail == "") {
     
         echo "
             <div class='form-succeed'>
@@ -22,7 +28,7 @@
                 <a href='edit-form.php?id=$id'><button style='background: #22a6d1; border: 2px solid black; padding: 5px 10px; color: white; border-radius: 10px'>Back To Edit Form</button></a>
             </div>";
     } else {
-        $update = "UPDATE users SET name='$name' WHERE id=$id";
+        $update = "UPDATE users SET name='$name', groupname = '$groupname', age = '$age' , thumbnail = '$thumbnail' WHERE id=$id";
         $execute = mysqli_query($connection, $update);
         if ($execute) {
             echo "

@@ -12,7 +12,7 @@ class UserController extends Controller
             "name" => "required|unique:users",
             "groupname" => "required|min:4|string",
             "country" => "required|min:4",
-            "age" => "required|numeric|max:3",
+            "age" => "required|numeric",
             "thumbnail" => "required|string"
         ]);
 
@@ -56,7 +56,7 @@ class UserController extends Controller
             'name' => 'required',
             'groupname' => 'required',
             'country' => 'required',
-            "age" => "required|numeric|max:3",
+            "age" => "required|numeric",
             "thumbnail" => "required|string"
         ]);
 

@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
             "groupname" => "Twice",
             "country"=> "South Korea",
             "age" => 27 ,
-            "thumbnail" => "https://th.bing.com/th?id=OSK.WouzY8piREcDG_MWREPyeuz9yi0vgg9trUU5X2FtLqc&w=120&h=120&c=12&o=6&pid=SANGAM"
+            "thumbnail" => "https://th.bing.com/th?id=OIP.z-7RjZvXwR9RhmktNO-NPAAAAA&w=80&h=80&c=1&vt=10&bgcl=9cb344&r=0&o=6&pid=5.1"
         ]);
 
         User::create([
@@ -83,7 +83,7 @@ class DatabaseSeeder extends Seeder
             "groupname" => "Bini",
             "country"=> "Philippines",
              "age" => 26 ,
-            "thumbnail" => "https://www.youtube.com/watch?v=S4G6BfLj9tk&pp=ygUNYmluaSBtaWtoYW1vdA%3D%3D"
+            "thumbnail" => "https://tinyurl.com/77ycz2mj"
         ]);
         
 
@@ -92,7 +92,7 @@ class DatabaseSeeder extends Seeder
             "groupname" => "Bini",
             "country"=> "Philippines",
             "age" => 26 ,
-            "thumbnail" => "https://www.youtube.com/watch?v=S4G6BfLj9tk&pp=ygUNYmluaSBtaWtoYW1vdA%3D%3D"
+            "thumbnail" => "https://tinyurl.com/77ycz2mj"
         ]);
         
       

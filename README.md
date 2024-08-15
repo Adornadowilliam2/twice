@@ -13,5 +13,3 @@ To see the application version just go to the branch app or you can use the comm
 ![React Native](https://img.shields.io/badge/React%20Native-20232A?style=flat&logo=react&logoColor=61DAFB)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white)
 
-
-https://cdn.discordapp.com/emojis/780005090764259338.gif?size=48

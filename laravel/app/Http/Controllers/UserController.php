@@ -7,13 +7,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function showRegistrationForm()
-    {
-        return view('users.register');
-    }
-
-    public function register(Request $request)
-    {
+    public function register(Request $request){
         $validator = validator($request->all(), [
             "name" => "required|unique:users",
             "groupname" => "required|min:4|string",
@@ -22,31 +16,43 @@ class UserController extends Controller
             "thumbnail" => "required|string"
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+        if($validator->fails()){
+            return response()->json(
+                [
+                "ok"=> false,
+                "message"=> "Request didn't pass validation",
+                "errors"=> $validator->errors()
+                ]
+            );
         }
+
 
         $user = User::create($validator->validated());
 
-        return redirect()->route('users.list')->with('success', 'User has been created');
+        return response()->json(
+           [ 
+            "ok"=> true,
+           "message"=> "User has been created",
+           "data"=> $user
+           ] 
+        );
     }
 
-    public function showUserList()
-    {
-        $users = User::all();
-        return view('users.list', compact('users'));
+    public function retrieve(Request $request){
+       
+        return response()->json(
+            [ 
+             "ok"=> true,
+            "message"=> "User has been retrieved",
+            "data"=> User::all()
+            ] 
+         );
     }
 
-    public function showEditForm($id)
-    {
-        $user = User::findOrFail($id);
-        return view('users.edit', compact('user'));
-    }
-
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request){
         $data = $request->all();
         $validator = validator($data, [
+            'id' => 'required',
             'name' => 'required',
             'groupname' => 'required',
             'country' => 'required',
@@ -54,25 +60,61 @@ class UserController extends Controller
             "thumbnail" => "required|string"
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+        if($validator->fails()){
+            return response()->json([
+                "ok"=>false,
+                "message"=>"Request didn't pass validation",
+                "error"=>$validator->errors()
+            ]);
         }
 
+    
         try {
-            User::where('id', $id)->update($validator->validated());
-            return redirect()->route('users.list')->with('success', 'User has been updated');
+            User::where('id',$data['id'])
+            ->update([
+                'name'=>$data['name'],
+                'groupname'=>$data['groupname'],
+                'country'=>$data['country'],
+                'age'=>$data['age'],
+                'thumbnail'=>$data['thumbnail'],
+            ]);
+            return response()->json([
+                "ok"=>true,
+                "message"=>"User has been updated",
+                "data" => $data
+            ]);
         } catch (\Exception $e) {
-            \Log::error($e);
-            return redirect()->back()->withErrors(['error' => 'An error occurred while updating the user.'])->withInput();
+            Log::error($e);
+            return response()->json([
+                "ok"=>false,
+                "message"=>"Request didn't pass validation",
+                "error"=>$validator->errors()
+            ]);
+        }
+
+    }
+
+    public function delete(Request $request){
+        $data = $request->all();
+        $validator = validator($data, [
+            'id' => 'required'
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                "ok"=>false,
+                "message"=>"Request didn't pass validation",
+                "errors"=>$validator->errors()
+            ]);
+        }
+
+        if(User::where('id',$data['id'])->delete()){
+            return response()->json([
+                "ok"=> true,
+                "message" => "User has been deleted",
+                "data" => $data
+            ]);
         }
     }
 
-    public function delete($id)
-    {
-        $user = User::findOrFail($id);
-
-        if ($user->delete()) {
-            return redirect()->route('users.list')->with('success', 'User has been deleted');
-        }
-    }
 }

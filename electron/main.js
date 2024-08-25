@@ -15,7 +15,7 @@ function createWindow() {
     },
   });
   /** * For development mode */ mainWindow.loadURL(
-    "http://localhost:5173/"
+    "http://localhost:5173/twice/"
   ); /** * For production mode * mainWindow.loadFile(path.join(__dirname, '../dist/index.html')); */
 }
 app.whenReady().then(() => {

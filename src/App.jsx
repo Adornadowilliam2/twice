@@ -16,6 +16,7 @@ import { faStar } from "@fortawesome/free-regular-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import $ from "jquery";
+
 function App() {
   const [rows, setRows] = useState([]);
   const [createDialog, setCreateDialog] = useState(false);
@@ -24,14 +25,111 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [warnings, setWarnings] = useState({});
 
+  const fakeData = [
+    {
+      id: 1,
+      name: "Sana Minatozaki",
+      groupname: "Twice",
+      country: "Japan",
+      age: 27,
+      thumbnail:
+        "https://th.bing.com/th?id=OSK.HERO5E6A1BF586CD3ACDDED324113EC3B01C7D5C5EBD&w=384&h=228&c=13&rs=2&o=6&pid=SANGAM",
+    },
+    {
+      id: 2,
+      name: "Momo Mirai",
+      groupname: "Twice",
+      country: "Japan",
+      age: 27,
+      thumbnail:
+        "https://th.bing.com/th?id=OSK.Waj5Gw1a5hHGqbpwqSFOUM00diMDxELzL2I3O2eIi3w&w=120&h=120&c=12&o=6&pid=SANGAM",
+    },
+    {
+      id: 3,
+      name: "Mina Sharon Myoi",
+      groupname: "Twice",
+      country: "Japan",
+      age: 27,
+      thumbnail:
+        "https://th.bing.com/th?id=OSK.RrluHepTETClMhQ6UYT4sXPtV5Pz7sm30P--InGse0Y&w=120&h=120&c=12&o=6&pid=SANGAM",
+    },
+    {
+      id: 4,
+      name: "Chou Tzuyu",
+      groupname: "Twice",
+      country: "Taiwan",
+      age: 25,
+      thumbnail:
+        "https://th.bing.com/th?id=OSK.xMdLOK68T-ez1BEdDAJmIiRsLDZfi0ay40e3Ybc5n8o&w=120&h=120&c=12&o=6&pid=SANGAM",
+    },
+    {
+      id: 5,
+      name: "Park Jihyo",
+      groupname: "Twice",
+      country: "South Korea",
+      age: 27,
+      thumbnail:
+        "https://th.bing.com/th?id=OSK.WouzY8piREcDG_MWREPyeuz9yi0vgg9trUU5X2FtLqc&w=120&h=120&c=12&o=6&pid=SANGAM",
+    },
+    {
+      id: 6,
+      name: "Im Nayeon",
+      groupname: "Twice",
+      country: "South Korea",
+      age: 27,
+      thumbnail:
+        "https://th.bing.com/th?id=OIP.z-7RjZvXwR9RhmktNO-NPAAAAA&w=80&h=80&c=1&vt=10&bgcl=9cb344&r=0&o=6&pid=5.1",
+    },
+    {
+      id: 7,
+      name: "Son Chaeyoung",
+      groupname: "Twice",
+      country: "South Korea",
+      age: 25,
+      thumbnail:
+        "https://th.bing.com/th?id=OSK.LG932evPkLFLjCChSLrcpxRqsUpSqu9c-Acg5yUINxc&w=120&h=120&c=12&o=6&pid=SANGAM",
+    },
+    {
+      id: 8,
+      name: "Kim Dahyun",
+      groupname: "Twice",
+      country: "South Korea",
+      age: 26,
+      thumbnail:
+        "https://th.bing.com/th?id=OSK.1d-qgmemxP_h3AXsVJGH89_6efwIZH-9buTzBs9a8PA&w=120&h=120&c=12&o=6&pid=SANGAM",
+    },
+    {
+      id: 9,
+      name: "Mikhamot Libag",
+      groupname: "Bini",
+      country: "Philippines",
+      age: 26,
+      thumbnail: "https://tinyurl.com/77ycz2mj",
+    },
+    {
+      id: 10,
+      name: "Manoy Loid Ricalde",
+      groupname: "Bini",
+      country: "Philippines",
+      age: 26,
+      thumbnail: "https://tinyurl.com/77ycz2mj",
+    },
+  ];
+
   const refreshData = () => {
-    retrieve().then((res) => {
-      if (res?.ok) {
-        setRows(res.data);
-      } else {
-        toast.error(res?.message ?? "Something went wrong.");
-      }
-    });
+    retrieve()
+      .then((res) => {
+        if (res?.ok) {
+          setRows(res.data);
+        } else {
+          toast.error(res?.message ?? "Something went wrong.");
+          setRows(fakeData); // Use fake data on error
+        }
+      })
+      .catch(() => {
+        toast.error("Failed to fetch data. Using fake data.");
+        setRows(fakeData); // Use fake data if there’s an error
+      });
   };
 
   useEffect(refreshData, []);
@@ -40,7 +138,6 @@ function App() {
     setLoading(true);
     destroy({ id: deleteDialog })
       .then((res) => {
-        console.log(res);
         if (res?.ok) {
           toast.success(res?.message ?? "User has been deleted");
           refreshData();
@@ -59,7 +156,7 @@ function App() {
     if (!loading) {
       setLoading(true);
       update({
-        id: editDialog,
+        id: editDialog.id,
         name: editDialog.name,
         groupname: editDialog.groupname,
         country: editDialog.country,
@@ -67,7 +164,6 @@ function App() {
         thumbnail: editDialog.thumbnail,
       })
         .then((res) => {
-          console.log(res);
           if (res?.ok) {
             toast.success(res?.message ?? "User has updated");
             setEditDialog(null);
@@ -110,6 +206,7 @@ function App() {
         });
     }
   };
+
   return (
     <>
       <Box>
@@ -203,7 +300,7 @@ function App() {
           </Box>
         ))}
 
-        <Dialog open={deleteDialog !== null}>
+        <Dialog open={!!deleteDialog}>
           <DialogTitle>Are you sure?</DialogTitle>
           <DialogContent>
             <Typography>

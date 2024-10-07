@@ -83,7 +83,7 @@ class DatabaseSeeder extends Seeder
             "groupname" => "Bini",
             "country"=> "Philippines",
              "age" => 26 ,
-            "thumbnail" => "https://tinyurl.com/77ycz2mj"
+            "thumbnail" => "https://github.com/Adornadowilliam2/images/blob/main/bini1.png?raw=true"
         ]);
         
 
@@ -92,7 +92,7 @@ class DatabaseSeeder extends Seeder
             "groupname" => "Bini",
             "country"=> "Philippines",
             "age" => 26 ,
-            "thumbnail" => "https://tinyurl.com/77ycz2mj"
+            "thumbnail" => "https://github.com/Adornadowilliam2/images/blob/main/bini2.png?raw=true"
         ]);
         
       

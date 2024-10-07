@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('groupname');
             $table->string('country');
-            $table->string('age');
+            $table->integer('age');
             $table->string('thumbnail');
             $table->timestamps();
         });

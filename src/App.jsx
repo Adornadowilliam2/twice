@@ -254,10 +254,11 @@ function App() {
                 alt="Thumbnail"
                 title={row.thumbnail}
                 style={{
-                  maxWidth: "100%",
-                  height: "auto",
                   borderRadius: 1,
                   boxShadow: 1,
+                  width: "200px",
+                  height: "200px",
+                  objectFit: "contain",
                 }}
               />
             </Box>

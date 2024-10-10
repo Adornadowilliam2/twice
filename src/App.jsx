@@ -228,10 +228,9 @@ function App() {
           <Box
             key={row.id}
             sx={{
-              mt: 4,
-              mb: 4,
               p: 3,
-              borderTop: "2px solid black",
+              m: 10,
+
               borderRadius: 2,
               boxShadow: 2,
             }}
@@ -264,18 +263,21 @@ function App() {
             </Box>
             <Typography
               sx={{
-                backgroundColor: "lightgray",
                 p: 1,
                 borderRadius: 1,
                 display: "flex",
                 alignItems: "center",
+                fontFamily: "Exo 2",
               }}
             >
               <FontAwesomeIcon
                 icon={faStar}
-                color="gold"
                 size="2x"
-                style={{ marginRight: 8 }}
+                style={{
+                  marginRight: 8,
+                  backgroundColor: "gold",
+                  color: "black",
+                }}
               />
               Name: {row.name}
             </Typography>
